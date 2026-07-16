@@ -1,0 +1,68 @@
+name: TokenMonitor
+
+options:
+  bundleIdPrefix: app.tokenmonitor
+  createIntermediateGroups: true
+  deploymentTarget:
+    macOS: "14.0"
+
+packages:
+  TokenMonitorCore:
+    path: Packages/TokenMonitorCore
+  TokenMonitorProviders:
+    path: Packages/TokenMonitorProviders
+  TokenMonitorUI:
+    path: Packages/TokenMonitorUI
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    ENABLE_HARDENED_RUNTIME: YES
+
+targets:
+  TokenMonitor:
+    type: application
+    platform: macOS
+    sources:
+      - path: App
+    resources:
+      - path: Resources
+    dependencies:
+      - package: TokenMonitorProviders
+        product: TokenMonitorProviders
+      - package: TokenMonitorUI
+        product: TokenMonitorUI
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.tokenmonitor.desktop
+        PRODUCT_NAME: TokenMonitor
+        MARKETING_VERSION: 0.0.1
+        CURRENT_PROJECT_VERSION: 1
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: ""
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: Token Monitor
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSApplicationCategoryType: public.app-category.utilities
+        LSUIElement: true
+        NSHighResolutionCapable: true
+        NSPrincipalClass: NSApplication
+    entitlements:
+      path: App/TokenMonitor.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.network.client: true
+
+schemes:
+  TokenMonitor:
+    build:
+      targets:
+        TokenMonitor: all
+    run:
+      config: Debug
+    archive:
+      config: Release

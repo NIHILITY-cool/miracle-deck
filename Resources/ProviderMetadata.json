@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "providers": [
+    {
+      "id": "mock.deepseek",
+      "displayName": "DeepSeek",
+      "category": "api",
+      "stability": "local"
+    },
+    {
+      "id": "mock.codex",
+      "displayName": "Codex",
+      "category": "subscription",
+      "stability": "local"
+    },
+    {
+      "id": "mock.new-api",
+      "displayName": "New API",
+      "category": "relay",
+      "stability": "local"
+    }
+  ]
+}
