@@ -1,5 +1,5 @@
 import SwiftUI
-import TokenMonitorCore
+import MiracleDeckCore
 
 public struct MonitorPanelView: View {
     private let snapshots: [ProviderSnapshot]
@@ -34,7 +34,7 @@ public struct MonitorPanelView: View {
     private var header: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text("Token Monitor")
+                Text("MiracleDeck")
                     .font(.headline)
                 Text("所有账户")
                     .font(.caption)

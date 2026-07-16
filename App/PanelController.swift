@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
-import TokenMonitorCore
-import TokenMonitorUI
+import MiracleDeckCore
+import MiracleDeckUI
 
 @MainActor
 final class PanelController {

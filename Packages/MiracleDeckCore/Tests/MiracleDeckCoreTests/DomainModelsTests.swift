@@ -1,5 +1,5 @@
 import XCTest
-@testable import TokenMonitorCore
+@testable import MiracleDeckCore
 
 final class DomainModelsTests: XCTestCase {
     func testMoneyUsesDecimalAndKeepsCurrency() {

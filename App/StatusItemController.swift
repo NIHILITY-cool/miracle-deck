@@ -18,7 +18,7 @@ final class StatusItemController: NSObject {
 
         button.image = NSImage(
             systemSymbolName: "chart.bar.xaxis",
-            accessibilityDescription: "Token Monitor"
+            accessibilityDescription: "MiracleDeck"
         )
         button.image?.isTemplate = true
         button.target = self

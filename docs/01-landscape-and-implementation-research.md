@@ -1,4 +1,4 @@
-# Token Monitor：同类项目与实现方案调研
+# MiracleDeck：同类项目与实现方案调研
 
 > 调研日期：2026-07-15
 > 目标平台：首选 macOS 菜单栏；未来可复用核心层到 Windows/Linux 版本。
@@ -33,7 +33,7 @@
 | [ClaudeBar](https://github.com/tddworks/ClaudeBar) | macOS 菜单栏；Swift 6.2、SwiftUI、Tuist | 多种 AI Coding 套餐 | `QuotaMonitor` 单一状态源、Repository 协议、依赖注入、provider 测试流程、自动签名发布 | MIT；macOS 15+ |
 | [ccusage](https://github.com/ccusage/ccusage) | 跨平台 CLI | 读取 Claude Code、Codex、Gemini CLI、Copilot CLI 等本地日志 | 多种日志格式解析、按日/周/月/会话聚合、缓存 Token 计价、离线价格表 | 本地统计是估算，不能代替服务商账单 |
 | [TokenBudget](https://tokenbudget.com/) | 自托管代理/SDK + Dashboard | API Token、费用、延迟与项目归因 | 通过代理观察每次请求，适合团队或服务端统计 | 更重，不是菜单栏竞品，但可参考成本归因 |
-| [LiteLLM](https://github.com/BerriAI/litellm) | LLM Gateway | 多模型路由、虚拟 Key、预算与支出日志 | 中转站适配、按 key/user/team 统计、统一网关数据源 | 更适合作为 Token Monitor 的数据源，而非 UI 竞品 |
+| [LiteLLM](https://github.com/BerriAI/litellm) | LLM Gateway | 多模型路由、虚拟 Key、预算与支出日志 | 中转站适配、按 key/user/team 统计、统一网关数据源 | 更适合作为 MiracleDeck 的数据源，而非 UI 竞品 |
 | [One API](https://github.com/songquanpeng/one-api) / [New API](https://github.com/QuantumNous/new-api) | 自托管中转站 | 国内常见 OpenAI 兼容中转、用户额度和消费日志 | 定义 New API/One API 专用 adapter，覆盖大量第三方站点 | New API 不是简单的标准 MIT 项目，引用代码前应单独核对其最新双许可条款 |
 
 ### 2.1 对竞品的判断
@@ -302,7 +302,7 @@ CredentialStore -> ProviderClient -> ProviderParser -> SnapshotMapper
 ### 5.3 模块建议
 
 ```text
-TokenMonitorApp/
+MiracleDeckApp/
   App/                 # NSStatusItem、NSPanel、设置窗口、通知
   Domain/              # Snapshot、Money、QuotaWindow、错误类型
   ProviderKit/         # provider 协议、注册表、调度、公共 HTTP
@@ -363,7 +363,7 @@ TokenMonitorApp/
 
 ```text
 ┌──────────────────────────────────┐
-│ Token Monitor          ↻   ⚙︎   │
+│ MiracleDeck          ↻   ⚙︎   │
 ├──────────────────────────────────┤
 │ DeepSeek API                    │
 │ ¥ 83.42 可用     今日 -¥ 2.18   │

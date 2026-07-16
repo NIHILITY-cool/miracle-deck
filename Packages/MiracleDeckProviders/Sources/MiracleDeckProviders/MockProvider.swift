@@ -1,5 +1,5 @@
 import Foundation
-import TokenMonitorCore
+import MiracleDeckCore
 
 public enum MockProvider {
     public static func sampleSnapshots(now: Date = Date()) -> [ProviderSnapshot] {

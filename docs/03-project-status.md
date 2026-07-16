@@ -12,12 +12,14 @@
 - 默认开发工具链已切换至完整 Xcode；
 - Swift 6.3.3 编译环境验证通过；
 - 初始化本地 Git 仓库，默认分支为 `main`；
+- 创建并推送远程 GitHub 仓库
+  [`NIHILITY-cool/miracle-deck`](https://github.com/NIHILITY-cool/miracle-deck)；
 - 创建 XcodeGen 可复现工程配置；
 - 创建原生 macOS 菜单栏 App；
 - 实现 `NSStatusItem + NSPanel` 基础交互；
 - 设置最低系统版本为 macOS 14；
 - 开启 Swift 6 strict concurrency；
-- 创建 `TokenMonitorCore`、`TokenMonitorProviders`、`TokenMonitorUI`；
+- 创建 `MiracleDeckCore`、`MiracleDeckProviders`、`MiracleDeckUI`；
 - 定义首批领域模型；
 - 加入 DeepSeek、Codex、New API Mock 数据；
 - 实现首版 Hero 卡与多平台列表切换；
@@ -26,11 +28,13 @@
 - 本地 Debug App 构建成功；
 - 4 个基础测试通过；
 - 构建出的 Debug App 当前约 836 KB。
+- 产品、工程、Swift Package 和运行时标识已统一重命名为
+  `MiracleDeck`；
+- Bundle Identifier 已确定为 `cool.nihility.miracledeck`。
 
 ## 尚未完成
 
-- 最终产品名称和 Bundle Identifier；
-- 远程 GitHub 仓库与分支保护；
+- GitHub 分支保护；
 - CI 在远程 GitHub Runner 上的首次验证；
 - SwiftFormat 或 SwiftLint；
 - 正式图标和 Design Token；
@@ -39,17 +43,18 @@
 - DeepSeek、New API、Codex 真实数据接入；
 - 签名、公证、Sparkle 和 Homebrew Cask。
 
-## 当前命名状态
+## 项目标识
 
-代码和工程暂用：
+当前正式使用：
 
 ```text
-Product: Token Monitor
-Executable: TokenMonitor
-Bundle ID: app.tokenmonitor.desktop
+Product: MiracleDeck
+Executable: MiracleDeck
+Bundle ID: cool.nihility.miracledeck
+Repository: NIHILITY-cool/miracle-deck
 ```
 
-这些都是工程代号，可以在首次公开发布前统一替换。候选品牌名优先考虑 `MiracleDeck`，仓库名建议使用 `miracle-deck`。
+稳定版本发布前仍需完成正式商标核查，但后续开发不再使用旧工程代号。
 
 ## 下一里程碑
 

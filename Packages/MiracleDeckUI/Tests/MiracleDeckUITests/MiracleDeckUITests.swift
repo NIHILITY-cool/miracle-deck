@@ -1,9 +1,9 @@
 import XCTest
-import TokenMonitorCore
-@testable import TokenMonitorUI
+import MiracleDeckCore
+@testable import MiracleDeckUI
 
 @MainActor
-final class TokenMonitorUITests: XCTestCase {
+final class MiracleDeckUITests: XCTestCase {
     func testPanelCanBeConstructedWithNoSnapshots() {
         _ = MonitorPanelView(snapshots: [])
     }

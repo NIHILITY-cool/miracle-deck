@@ -1,4 +1,4 @@
-# Token Monitor
+# MiracleDeck
 
 一个计划中的轻量级 macOS 菜单栏应用，用来集中查看：
 
@@ -22,7 +22,7 @@ Package 和基础 CI；尚未连接真实账户。
 ```bash
 brew install xcodegen
 make verify
-open TokenMonitor.xcodeproj
+open MiracleDeck.xcodeproj
 ```
 
 如果系统尚未把完整 Xcode 设为默认工具链，可以先运行：

@@ -25,8 +25,8 @@ jobs:
       - name: Build app
         run: |
           xcodebuild \
-            -project TokenMonitor.xcodeproj \
-            -scheme TokenMonitor \
+            -project MiracleDeck.xcodeproj \
+            -scheme MiracleDeck \
             -configuration Debug \
             -derivedDataPath DerivedData \
             CODE_SIGNING_ALLOWED=NO \
@@ -34,6 +34,6 @@ jobs:
 
       - name: Test packages
         run: |
-          swift test --package-path Packages/TokenMonitorCore
-          swift test --package-path Packages/TokenMonitorProviders
-          swift test --package-path Packages/TokenMonitorUI
+          swift test --package-path Packages/MiracleDeckCore
+          swift test --package-path Packages/MiracleDeckProviders
+          swift test --package-path Packages/MiracleDeckUI

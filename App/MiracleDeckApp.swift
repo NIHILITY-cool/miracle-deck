@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct TokenMonitorApp: App {
+struct MiracleDeckApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     var body: some Scene {
@@ -16,7 +16,7 @@ private struct SettingsPlaceholderView: View {
         VStack(spacing: 12) {
             Image(systemName: "chart.bar.xaxis")
                 .font(.system(size: 32))
-            Text("Token Monitor")
+            Text("MiracleDeck")
                 .font(.headline)
             Text("账户设置将在后续里程碑开放。")
                 .foregroundStyle(.secondary)

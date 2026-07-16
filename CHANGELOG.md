@@ -6,6 +6,12 @@ The project follows semantic versioning after the first public release.
 
 ## [Unreleased]
 
+### Changed
+
+- Renamed the product, Xcode project, Swift packages, and identifiers from the
+  temporary Token Monitor name to MiracleDeck.
+- Adopted `cool.nihility.miracledeck` as the application bundle identifier.
+
 ### Added
 
 - Native macOS menu bar application skeleton using `NSStatusItem + NSPanel`.

@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2DC308A297ADA89B45462757"
-               BuildableName = "TokenMonitor.app"
-               BlueprintName = "TokenMonitor"
-               ReferencedContainer = "container:TokenMonitor.xcodeproj">
+               BlueprintIdentifier = "2B88CC807B5064678F8B23CA"
+               BuildableName = "MiracleDeck.app"
+               BlueprintName = "MiracleDeck"
+               ReferencedContainer = "container:MiracleDeck.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2DC308A297ADA89B45462757"
-            BuildableName = "TokenMonitor.app"
-            BlueprintName = "TokenMonitor"
-            ReferencedContainer = "container:TokenMonitor.xcodeproj">
+            BlueprintIdentifier = "2B88CC807B5064678F8B23CA"
+            BuildableName = "MiracleDeck.app"
+            BlueprintName = "MiracleDeck"
+            ReferencedContainer = "container:MiracleDeck.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -55,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2DC308A297ADA89B45462757"
-            BuildableName = "TokenMonitor.app"
-            BlueprintName = "TokenMonitor"
-            ReferencedContainer = "container:TokenMonitor.xcodeproj">
+            BlueprintIdentifier = "2B88CC807B5064678F8B23CA"
+            BuildableName = "MiracleDeck.app"
+            BlueprintName = "MiracleDeck"
+            ReferencedContainer = "container:MiracleDeck.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -74,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2DC308A297ADA89B45462757"
-            BuildableName = "TokenMonitor.app"
-            BlueprintName = "TokenMonitor"
-            ReferencedContainer = "container:TokenMonitor.xcodeproj">
+            BlueprintIdentifier = "2B88CC807B5064678F8B23CA"
+            BuildableName = "MiracleDeck.app"
+            BlueprintName = "MiracleDeck"
+            ReferencedContainer = "container:MiracleDeck.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

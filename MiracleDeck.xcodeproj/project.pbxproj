@@ -1,0 +1,373 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D18516B22C6D42F693A4CC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7385B4F839F94407C769544 /* AppDelegate.swift */; };
+		1E6E9851D1C4CAE8ABAE4901 /* PanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAD68D88BAFB80AD0518C0E /* PanelController.swift */; };
+		4AEAF400B13C19068875FA76 /* MiracleDeckProviders in Frameworks */ = {isa = PBXBuildFile; productRef = 814648AF38FA97A9BB62802E /* MiracleDeckProviders */; };
+		716AA4B32A9FB39029847BE2 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D07A78101B5AB810EDDD922 /* StatusItemController.swift */; };
+		93D14D7F0E91A364B6CE1DE0 /* MiracleDeckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABC20297FAF828D00E0A4E8 /* MiracleDeckApp.swift */; };
+		AD53917E2C663E24FE820778 /* MiracleDeckUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2C1D2BFEAF3554C26A2243E4 /* MiracleDeckUI */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		17DBBC55B3F0857B2365BDC0 /* MiracleDeck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MiracleDeck.entitlements; sourceTree = "<group>"; };
+		1D07A78101B5AB810EDDD922 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
+		2320B37A7CF6D411D7A07D3E /* MiracleDeck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiracleDeck.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AD9D9938874A7858F131E6E /* MiracleDeckProviders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MiracleDeckProviders; path = Packages/MiracleDeckProviders; sourceTree = SOURCE_ROOT; };
+		63BF82E5581220F604199F6B /* MiracleDeckCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MiracleDeckCore; path = Packages/MiracleDeckCore; sourceTree = SOURCE_ROOT; };
+		6ABC20297FAF828D00E0A4E8 /* MiracleDeckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiracleDeckApp.swift; sourceTree = "<group>"; };
+		9A8E0DC116F9D8CD66D1D9A6 /* MiracleDeckUI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MiracleDeckUI; path = Packages/MiracleDeckUI; sourceTree = SOURCE_ROOT; };
+		ACAD68D88BAFB80AD0518C0E /* PanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelController.swift; sourceTree = "<group>"; };
+		DF2F069E2EA8987919FE969B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E7385B4F839F94407C769544 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0A4C8C8BA159D143DA127EBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AEAF400B13C19068875FA76 /* MiracleDeckProviders in Frameworks */,
+				AD53917E2C663E24FE820778 /* MiracleDeckUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		25D58F92EE30D35809839C61 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				63BF82E5581220F604199F6B /* MiracleDeckCore */,
+				3AD9D9938874A7858F131E6E /* MiracleDeckProviders */,
+				9A8E0DC116F9D8CD66D1D9A6 /* MiracleDeckUI */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		742A06896917817EC22A7A51 = {
+			isa = PBXGroup;
+			children = (
+				D5B94E0A536FB37D015AE9DC /* App */,
+				25D58F92EE30D35809839C61 /* Packages */,
+				AA40405D47643299803803A5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA40405D47643299803803A5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2320B37A7CF6D411D7A07D3E /* MiracleDeck.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D5B94E0A536FB37D015AE9DC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E7385B4F839F94407C769544 /* AppDelegate.swift */,
+				DF2F069E2EA8987919FE969B /* Info.plist */,
+				17DBBC55B3F0857B2365BDC0 /* MiracleDeck.entitlements */,
+				6ABC20297FAF828D00E0A4E8 /* MiracleDeckApp.swift */,
+				ACAD68D88BAFB80AD0518C0E /* PanelController.swift */,
+				1D07A78101B5AB810EDDD922 /* StatusItemController.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2B88CC807B5064678F8B23CA /* MiracleDeck */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84D9481487E96AFD8C0F1546 /* Build configuration list for PBXNativeTarget "MiracleDeck" */;
+			buildPhases = (
+				22072A0ED8D3A9B33A05DCB9 /* Sources */,
+				0A4C8C8BA159D143DA127EBF /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MiracleDeck;
+			packageProductDependencies = (
+				814648AF38FA97A9BB62802E /* MiracleDeckProviders */,
+				2C1D2BFEAF3554C26A2243E4 /* MiracleDeckUI */,
+			);
+			productName = MiracleDeck;
+			productReference = 2320B37A7CF6D411D7A07D3E /* MiracleDeck.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		885B26D05EC238CB62B3D624 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					2B88CC807B5064678F8B23CA = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 12EB3658F56E15EBCE66C012 /* Build configuration list for PBXProject "MiracleDeck" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 742A06896917817EC22A7A51;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A0F2031E9346BCE41148E55F /* XCLocalSwiftPackageReference "Packages/MiracleDeckCore" */,
+				3C5233750F97530596B9F95C /* XCLocalSwiftPackageReference "Packages/MiracleDeckProviders" */,
+				13271144D042C2F6BA67BFAE /* XCLocalSwiftPackageReference "Packages/MiracleDeckUI" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = AA40405D47643299803803A5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2B88CC807B5064678F8B23CA /* MiracleDeck */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		22072A0ED8D3A9B33A05DCB9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D18516B22C6D42F693A4CC0 /* AppDelegate.swift in Sources */,
+				93D14D7F0E91A364B6CE1DE0 /* MiracleDeckApp.swift in Sources */,
+				1E6E9851D1C4CAE8ABAE4901 /* PanelController.swift in Sources */,
+				716AA4B32A9FB39029847BE2 /* StatusItemController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		144F2D7030F472DDF195CF5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		1587866CD165AF6C160CCF18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		40CE32FE201C8F82A6CA590C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				CODE_SIGN_ENTITLEMENTS = App/MiracleDeck.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = cool.nihility.miracledeck;
+				PRODUCT_NAME = MiracleDeck;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		70DF89379F0BFB695663AE1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				CODE_SIGN_ENTITLEMENTS = App/MiracleDeck.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = cool.nihility.miracledeck;
+				PRODUCT_NAME = MiracleDeck;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		12EB3658F56E15EBCE66C012 /* Build configuration list for PBXProject "MiracleDeck" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				144F2D7030F472DDF195CF5D /* Debug */,
+				1587866CD165AF6C160CCF18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		84D9481487E96AFD8C0F1546 /* Build configuration list for PBXNativeTarget "MiracleDeck" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70DF89379F0BFB695663AE1B /* Debug */,
+				40CE32FE201C8F82A6CA590C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		13271144D042C2F6BA67BFAE /* XCLocalSwiftPackageReference "Packages/MiracleDeckUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/MiracleDeckUI;
+		};
+		3C5233750F97530596B9F95C /* XCLocalSwiftPackageReference "Packages/MiracleDeckProviders" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/MiracleDeckProviders;
+		};
+		A0F2031E9346BCE41148E55F /* XCLocalSwiftPackageReference "Packages/MiracleDeckCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/MiracleDeckCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2C1D2BFEAF3554C26A2243E4 /* MiracleDeckUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MiracleDeckUI;
+		};
+		814648AF38FA97A9BB62802E /* MiracleDeckProviders */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MiracleDeckProviders;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 885B26D05EC238CB62B3D624 /* Project object */;
+}

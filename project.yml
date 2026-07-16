@@ -1,18 +1,18 @@
-name: TokenMonitor
+name: MiracleDeck
 
 options:
-  bundleIdPrefix: app.tokenmonitor
+  bundleIdPrefix: cool.nihility.miracledeck
   createIntermediateGroups: true
   deploymentTarget:
     macOS: "14.0"
 
 packages:
-  TokenMonitorCore:
-    path: Packages/TokenMonitorCore
-  TokenMonitorProviders:
-    path: Packages/TokenMonitorProviders
-  TokenMonitorUI:
-    path: Packages/TokenMonitorUI
+  MiracleDeckCore:
+    path: Packages/MiracleDeckCore
+  MiracleDeckProviders:
+    path: Packages/MiracleDeckProviders
+  MiracleDeckUI:
+    path: Packages/MiracleDeckUI
 
 settings:
   base:
@@ -21,7 +21,7 @@ settings:
     ENABLE_HARDENED_RUNTIME: YES
 
 targets:
-  TokenMonitor:
+  MiracleDeck:
     type: application
     platform: macOS
     sources:
@@ -29,14 +29,14 @@ targets:
     resources:
       - path: Resources
     dependencies:
-      - package: TokenMonitorProviders
-        product: TokenMonitorProviders
-      - package: TokenMonitorUI
-        product: TokenMonitorUI
+      - package: MiracleDeckProviders
+        product: MiracleDeckProviders
+      - package: MiracleDeckUI
+        product: MiracleDeckUI
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: app.tokenmonitor.desktop
-        PRODUCT_NAME: TokenMonitor
+        PRODUCT_BUNDLE_IDENTIFIER: cool.nihility.miracledeck
+        PRODUCT_NAME: MiracleDeck
         MARKETING_VERSION: 0.0.1
         CURRENT_PROJECT_VERSION: 1
         CODE_SIGN_STYLE: Automatic
@@ -44,7 +44,7 @@ targets:
     info:
       path: App/Info.plist
       properties:
-        CFBundleDisplayName: Token Monitor
+        CFBundleDisplayName: MiracleDeck
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         LSApplicationCategoryType: public.app-category.utilities
@@ -52,16 +52,16 @@ targets:
         NSHighResolutionCapable: true
         NSPrincipalClass: NSApplication
     entitlements:
-      path: App/TokenMonitor.entitlements
+      path: App/MiracleDeck.entitlements
       properties:
         com.apple.security.app-sandbox: true
         com.apple.security.network.client: true
 
 schemes:
-  TokenMonitor:
+  MiracleDeck:
     build:
       targets:
-        TokenMonitor: all
+        MiracleDeck: all
     run:
       config: Debug
     archive:

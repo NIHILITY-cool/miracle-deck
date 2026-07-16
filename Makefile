@@ -7,23 +7,23 @@ generate:
 
 build: generate
 	DEVELOPER_DIR="$(DEVELOPER_DIR)" xcodebuild \
-		-project TokenMonitor.xcodeproj \
-		-scheme TokenMonitor \
+		-project MiracleDeck.xcodeproj \
+		-scheme MiracleDeck \
 		-configuration Debug \
 		-derivedDataPath DerivedData \
 		CODE_SIGNING_ALLOWED=NO \
 		build
 
 test:
-	DEVELOPER_DIR="$(DEVELOPER_DIR)" swift test --package-path Packages/TokenMonitorCore
-	DEVELOPER_DIR="$(DEVELOPER_DIR)" swift test --package-path Packages/TokenMonitorProviders
-	DEVELOPER_DIR="$(DEVELOPER_DIR)" swift test --package-path Packages/TokenMonitorUI
+	DEVELOPER_DIR="$(DEVELOPER_DIR)" swift test --package-path Packages/MiracleDeckCore
+	DEVELOPER_DIR="$(DEVELOPER_DIR)" swift test --package-path Packages/MiracleDeckProviders
+	DEVELOPER_DIR="$(DEVELOPER_DIR)" swift test --package-path Packages/MiracleDeckUI
 
 verify: build test
 
 clean:
 	DEVELOPER_DIR="$(DEVELOPER_DIR)" xcodebuild \
-		-project TokenMonitor.xcodeproj \
-		-scheme TokenMonitor \
+		-project MiracleDeck.xcodeproj \
+		-scheme MiracleDeck \
 		-derivedDataPath DerivedData \
 		clean

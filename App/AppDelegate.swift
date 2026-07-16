@@ -1,6 +1,6 @@
 import AppKit
-import TokenMonitorProviders
-import TokenMonitorUI
+import MiracleDeckProviders
+import MiracleDeckUI
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {

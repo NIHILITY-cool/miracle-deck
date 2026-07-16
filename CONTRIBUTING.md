@@ -1,6 +1,6 @@
 # Contributing
 
-Token Monitor is in its engineering-prototype phase. Before submitting a
+MiracleDeck is in its engineering-prototype phase. Before submitting a
 change:
 
 1. Keep provider-specific parsing outside the App and UI targets.

@@ -1,5 +1,5 @@
 import XCTest
-@testable import TokenMonitorProviders
+@testable import MiracleDeckProviders
 
 final class MockProviderTests: XCTestCase {
     func testFixturesCoverCoreProviderCategories() {
