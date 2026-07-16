@@ -1,4 +1,5 @@
 import AppKit
+import QuartzCore
 import SwiftUI
 import MiracleDeckCore
 import MiracleDeckUI
@@ -63,9 +64,29 @@ final class PanelController {
         )
         origin.y = max(origin.y, screenFrame.minY + 8)
 
-        panel.setFrameOrigin(origin)
+        let reduceMotion = NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
+        let startOrigin = NSPoint(x: origin.x, y: origin.y + 7)
+
+        panel.alphaValue = reduceMotion ? 1 : 0
+        panel.setFrameOrigin(reduceMotion ? origin : startOrigin)
         NSApp.activate(ignoringOtherApps: true)
         panel.makeKeyAndOrderFront(nil)
+
+        guard !reduceMotion else {
+            return
+        }
+
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = 0.22
+            context.timingFunction = CAMediaTimingFunction(
+                controlPoints: 0.18,
+                0.78,
+                0.24,
+                1
+            )
+            panel.animator().alphaValue = 1
+            panel.animator().setFrameOrigin(origin)
+        }
     }
 }
 

@@ -32,11 +32,19 @@ final class MiracleDeckUITests: XCTestCase {
 
         XCTAssertEqual(
             resetTimestamp(date, timeZone: timeZone),
-            "刷新 7月19日 01:35"
+            "7月19日 01:35"
         )
         XCTAssertEqual(
             resetTimestamp(nil, timeZone: timeZone),
-            "刷新日期未知"
+            "时间未知"
+        )
+        XCTAssertEqual(
+            resetDate(date, timeZone: timeZone),
+            "7月19日"
+        )
+        XCTAssertEqual(
+            resetDate(nil, timeZone: timeZone),
+            "日期未知"
         )
     }
 
@@ -57,7 +65,13 @@ final class MiracleDeckUITests: XCTestCase {
             return false
         }
         let rootView = MonitorPanelView(snapshots: subscriptionFirst)
-            .environment(\.colorScheme, .light)
+            .environment(
+                \.colorScheme,
+                ProcessInfo.processInfo.environment["MIRACLEDECK_CAPTURE_SCHEME"] == "dark"
+                    ? .dark
+                    : .light
+            )
+            .environment(\.deckAnimationsEnabled, false)
         let hostingView = NSHostingView(rootView: rootView)
         hostingView.frame = NSRect(origin: .zero, size: size)
         hostingView.layoutSubtreeIfNeeded()

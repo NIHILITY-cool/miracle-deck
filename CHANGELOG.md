@@ -16,6 +16,10 @@ The project follows semantic versioning after the first public release.
   status accents, and a soft Aurora hero inspired by Quota Float.
 - Subscription cards now show exact quota reset dates and times, plus a compact
   weekly remaining quota summary without increasing the panel size.
+- Refined subscription quota hierarchy with a separate "本周" badge, date-only
+  weekly reset information, animated account selection and quota transitions.
+- Added a short menu-panel entrance animation and status-aware ambient color
+  bleed around the hero card while keeping the panel background stable.
 
 ### Added
 

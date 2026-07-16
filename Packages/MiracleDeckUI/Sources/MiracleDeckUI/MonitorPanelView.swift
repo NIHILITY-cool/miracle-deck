@@ -1,12 +1,25 @@
 import SwiftUI
 import MiracleDeckCore
 
+struct DeckAnimationsEnabledKey: EnvironmentKey {
+    static let defaultValue = true
+}
+
+extension EnvironmentValues {
+    var deckAnimationsEnabled: Bool {
+        get { self[DeckAnimationsEnabledKey.self] }
+        set { self[DeckAnimationsEnabledKey.self] = newValue }
+    }
+}
+
 public struct MonitorPanelView: View {
     public static let preferredSize = CGSize(width: 368, height: 400)
 
     private let snapshots: [ProviderSnapshot]
     @State private var selectedID: UUID?
+    @Namespace private var selectionNamespace
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     public init(snapshots: [ProviderSnapshot]) {
         self.snapshots = snapshots
@@ -21,6 +34,14 @@ public struct MonitorPanelView: View {
 
             if let selectedSnapshot {
                 ProviderHeroCard(snapshot: selectedSnapshot, palette: palette)
+                    .id(selectedSnapshot.id)
+                    .background {
+                        HeroAmbientGlow(
+                            status: selectedSnapshot.status,
+                            palette: palette
+                        )
+                    }
+                    .transition(heroTransition)
             }
 
             providerList(palette: palette)
@@ -42,6 +63,26 @@ public struct MonitorPanelView: View {
 
     private var selectedSnapshot: ProviderSnapshot? {
         snapshots.first(where: { $0.id == selectedID }) ?? snapshots.first
+    }
+
+    private var selectionAnimation: Animation {
+        reduceMotion
+            ? .linear(duration: 0.01)
+            : .spring(response: 0.34, dampingFraction: 0.86)
+    }
+
+    private var heroTransition: AnyTransition {
+        guard !reduceMotion else {
+            return .opacity
+        }
+
+        return .asymmetric(
+            insertion: .opacity
+                .combined(with: .scale(scale: 0.985))
+                .combined(with: .offset(y: 5)),
+            removal: .opacity
+                .combined(with: .scale(scale: 0.995))
+        )
     }
 
     private func header(palette: DeckPalette) -> some View {
@@ -72,12 +113,15 @@ public struct MonitorPanelView: View {
         VStack(spacing: 4) {
             ForEach(snapshots) { snapshot in
                 Button {
-                    selectedID = snapshot.id
+                    withAnimation(selectionAnimation) {
+                        selectedID = snapshot.id
+                    }
                 } label: {
                     ProviderCompactRow(
                         snapshot: snapshot,
                         isSelected: selectedID == snapshot.id,
-                        palette: palette
+                        palette: palette,
+                        selectionNamespace: selectionNamespace
                     )
                 }
                 .buttonStyle(.plain)
@@ -166,7 +210,7 @@ private struct ProviderHeroCard: View {
 
                 if let quota = snapshot.quotaWindows.first,
                    let remainingRatio = quota.remainingRatio {
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading, spacing: 5) {
                         QuotaProgressBar(
                             value: decimalDouble(remainingRatio),
                             status: snapshot.status,
@@ -180,19 +224,8 @@ private struct ProviderHeroCard: View {
                         }
                         .font(.system(size: 9.5, weight: .medium))
                         .foregroundStyle(palette.tertiaryText)
-
-                        if let weeklyQuota,
-                           let weeklyRemainingRatio = weeklyQuota.remainingRatio {
-                            HStack {
-                                Text("\(weeklyQuota.title) · 剩余 \(percentage(weeklyRemainingRatio))")
-                                Spacer()
-                                Text(resetTimestamp(weeklyQuota.resetsAt))
-                            }
-                            .font(.system(size: 9, weight: .medium))
-                            .foregroundStyle(palette.secondaryText)
-                        }
                     }
-                    .padding(.trailing, 42)
+                    .padding(.trailing, weeklyQuota == nil ? 42 : 88)
                 } else {
                     Text(snapshot.source.label)
                         .font(.system(size: 9.5, weight: .medium))
@@ -203,8 +236,19 @@ private struct ProviderHeroCard: View {
             .padding(15)
             .foregroundStyle(palette.primaryText)
 
-            ProviderMark(name: snapshot.displayName, palette: palette, size: 34)
-                .padding(14)
+            if let weeklyQuota,
+               let weeklyRemainingRatio = weeklyQuota.remainingRatio {
+                WeeklyQuotaBadge(
+                    remainingRatio: weeklyRemainingRatio,
+                    resetsAt: weeklyQuota.resetsAt,
+                    palette: palette
+                )
+                .padding(.trailing, 14)
+                .padding(.bottom, 13)
+            } else {
+                ProviderMark(name: snapshot.displayName, palette: palette, size: 34)
+                    .padding(14)
+            }
         }
         .frame(height: 154)
         .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
@@ -225,7 +269,7 @@ private struct ProviderHeroCard: View {
         if let ratio = snapshot.quotaWindows.first?.remainingRatio {
             return percentage(ratio)
         }
-        return "—"
+        return "暂无"
     }
 
     private var primaryFontSize: CGFloat {
@@ -241,6 +285,47 @@ private struct ProviderHeroCard: View {
             $0.id != primaryQuota.id
                 && ($0.id.localizedCaseInsensitiveContains("week")
                     || $0.title.localizedCaseInsensitiveContains("周"))
+        }
+    }
+}
+
+private struct WeeklyQuotaBadge: View {
+    let remainingRatio: Decimal
+    let resetsAt: Date?
+    let palette: DeckPalette
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(alignment: .firstTextBaseline, spacing: 5) {
+                Text("本周")
+                    .font(.system(size: 8.5, weight: .semibold))
+                    .tracking(0.5)
+                    .foregroundStyle(palette.tertiaryText)
+
+                Spacer(minLength: 0)
+
+                Text(percentage(remainingRatio))
+                    .font(.system(size: 12.5, weight: .semibold))
+                    .fontWidth(.condensed)
+                    .monospacedDigit()
+                    .foregroundStyle(palette.primaryText)
+            }
+
+            Text(resetDate(resetsAt))
+                .font(.system(size: 8.5, weight: .medium))
+                .monospacedDigit()
+                .foregroundStyle(palette.secondaryText)
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 6)
+        .frame(width: 76)
+        .background(
+            palette.weeklyFill,
+            in: RoundedRectangle(cornerRadius: 11, style: .continuous)
+        )
+        .overlay {
+            RoundedRectangle(cornerRadius: 11, style: .continuous)
+                .stroke(palette.weeklyBorder, lineWidth: 1)
         }
     }
 }
@@ -279,10 +364,41 @@ private struct HeroBackground: View {
     }
 }
 
+private struct HeroAmbientGlow: View {
+    let status: ProviderStatus
+    let palette: DeckPalette
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .fill(palette.heroAmbient(status).opacity(palette.isDark ? 0.14 : 0.22))
+                .blur(radius: 24)
+                .scaleEffect(x: 1.025, y: 0.82)
+                .offset(y: 9)
+
+            RadialGradient(
+                colors: [
+                    palette.heroCool.opacity(palette.isDark ? 0.12 : 0.24),
+                    .clear
+                ],
+                center: .topTrailing,
+                startRadius: 10,
+                endRadius: 170
+            )
+            .blur(radius: 12)
+            .padding(-8)
+        }
+        .allowsHitTesting(false)
+    }
+}
+
 private struct QuotaProgressBar: View {
     let value: Double
     let status: ProviderStatus
     let palette: DeckPalette
+    @State private var displayedValue = 0.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.deckAnimationsEnabled) private var animationsEnabled
 
     var body: some View {
         GeometryReader { geometry in
@@ -298,11 +414,29 @@ private struct QuotaProgressBar: View {
                             endPoint: .trailing
                         )
                     )
-                    .frame(width: max(5, geometry.size.width * min(max(value, 0), 1)))
+                    .frame(
+                        width: max(
+                            5,
+                            geometry.size.width * min(max(displayedValue, 0), 1)
+                        )
+                    )
+                    .animation(
+                        reduceMotion || !animationsEnabled
+                            ? nil
+                            : .spring(response: 0.52, dampingFraction: 0.88)
+                                .delay(0.04),
+                        value: displayedValue
+                    )
             }
         }
         .frame(height: 5)
         .accessibilityValue("\(Int((value * 100).rounded()))%")
+        .onAppear {
+            displayedValue = value
+        }
+        .onChange(of: value) { _, newValue in
+            displayedValue = newValue
+        }
     }
 }
 
@@ -310,46 +444,59 @@ private struct ProviderCompactRow: View {
     let snapshot: ProviderSnapshot
     let isSelected: Bool
     let palette: DeckPalette
+    let selectionNamespace: Namespace.ID
 
     var body: some View {
-        HStack(spacing: 9) {
-            ProviderMark(name: snapshot.displayName, palette: palette, size: 28)
-
-            VStack(alignment: .leading, spacing: 1) {
-                Text(snapshot.displayName)
-                    .font(.system(size: 11.5, weight: .semibold))
-                    .foregroundStyle(palette.primaryText)
-
-                Text(snapshot.accountName)
-                    .font(.system(size: 9.5, weight: .medium))
-                    .foregroundStyle(palette.tertiaryText)
-            }
-
-            Spacer()
-
-            Text(metric)
-                .font(.system(size: 11.5, weight: .medium))
-                .fontWidth(.condensed)
-                .monospacedDigit()
-                .foregroundStyle(palette.primaryText)
-
-            Circle()
-                .fill(palette.statusColor(snapshot.status))
-                .frame(width: 6, height: 6)
-                .accessibilityLabel(statusText(snapshot.status))
-        }
-        .padding(.horizontal, 9)
-        .frame(height: 42)
-        .background(
-            isSelected ? palette.selectedRow : Color.clear,
-            in: RoundedRectangle(cornerRadius: 13, style: .continuous)
-        )
-        .overlay {
+        ZStack {
             if isSelected {
                 RoundedRectangle(cornerRadius: 13, style: .continuous)
-                    .stroke(palette.selectedRowBorder, lineWidth: 1)
+                    .fill(palette.selectedRow)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 13, style: .continuous)
+                            .stroke(palette.selectedRowBorder, lineWidth: 1)
+                    }
+                    .shadow(
+                        color: palette.statusColor(snapshot.status).opacity(0.10),
+                        radius: 8,
+                        y: 3
+                    )
+                    .matchedGeometryEffect(
+                        id: "selected-provider-row",
+                        in: selectionNamespace
+                    )
             }
+
+            HStack(spacing: 9) {
+                ProviderMark(name: snapshot.displayName, palette: palette, size: 28)
+                    .scaleEffect(isSelected ? 1.04 : 1)
+
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(snapshot.displayName)
+                        .font(.system(size: 11.5, weight: .semibold))
+                        .foregroundStyle(palette.primaryText)
+
+                    Text(snapshot.accountName)
+                        .font(.system(size: 9.5, weight: .medium))
+                        .foregroundStyle(palette.tertiaryText)
+                }
+
+                Spacer()
+
+                Text(metric)
+                    .font(.system(size: 11.5, weight: .medium))
+                    .fontWidth(.condensed)
+                    .monospacedDigit()
+                    .foregroundStyle(palette.primaryText)
+
+                Circle()
+                    .fill(palette.statusColor(snapshot.status))
+                    .frame(width: 6, height: 6)
+                    .accessibilityLabel(statusText(snapshot.status))
+            }
+            .padding(.horizontal, 9)
+            .offset(x: isSelected ? 1 : 0)
         }
+        .frame(height: 42)
         .contentShape(Rectangle())
     }
 
@@ -360,7 +507,7 @@ private struct ProviderCompactRow: View {
         if let ratio = snapshot.quotaWindows.first?.remainingRatio {
             return percentage(ratio)
         }
-        return "—"
+        return "暂无"
     }
 }
 
@@ -441,7 +588,7 @@ private struct DeckPalette {
     var critical: Color { isDark ? Color(hex: 0xEC8B77) : Color(hex: 0xDA745E) }
     var unavailable: Color { isDark ? Color(hex: 0x919CAA) : Color(hex: 0x8A94A1) }
     var outerBorder: Color { Color.white.opacity(isDark ? 0.10 : 0.62) }
-    var heroBorder: Color { Color.white.opacity(isDark ? 0.10 : 0.48) }
+    var heroBorder: Color { Color.white.opacity(isDark ? 0.09 : 0.36) }
     var controlFill: Color { Color.white.opacity(isDark ? 0.07 : 0.28) }
     var controlBorder: Color { Color.white.opacity(isDark ? 0.10 : 0.48) }
     var selectedRow: Color { Color.white.opacity(isDark ? 0.055 : 0.40) }
@@ -450,6 +597,8 @@ private struct DeckPalette {
     var markBorder: Color { Color.white.opacity(isDark ? 0.08 : 0.50) }
     var markText: Color { isDark ? Color(hex: 0xDDE6EF) : Color(hex: 0x33465C) }
     var progressTrack: Color { Color.white.opacity(isDark ? 0.10 : 0.30) }
+    var weeklyFill: Color { Color.white.opacity(isDark ? 0.055 : 0.18) }
+    var weeklyBorder: Color { Color.white.opacity(isDark ? 0.085 : 0.30) }
 
     func statusColor(_ status: ProviderStatus) -> Color {
         switch status {
@@ -483,6 +632,19 @@ private struct DeckPalette {
             return isDark ? Color(hex: 0x6A453C) : Color(hex: 0xE6A98E)
         case .unavailable:
             return isDark ? Color(hex: 0x394452) : Color(hex: 0xCCD4DE)
+        }
+    }
+
+    func heroAmbient(_ status: ProviderStatus) -> Color {
+        switch status {
+        case .healthy:
+            return isDark ? Color(hex: 0x345D55) : Color(hex: 0xB8DFD5)
+        case .warning:
+            return isDark ? Color(hex: 0x625431) : Color(hex: 0xE9D69D)
+        case .critical:
+            return isDark ? Color(hex: 0x68483F) : Color(hex: 0xE8B69E)
+        case .unavailable:
+            return isDark ? Color(hex: 0x414C59) : Color(hex: 0xC8D2DE)
         }
     }
 
@@ -533,15 +695,34 @@ func resetTimestamp(
     timeZone: TimeZone = .autoupdatingCurrent
 ) -> String {
     guard let date else {
-        return "刷新日期未知"
+        return "时间未知"
     }
 
+    return formattedDate(date, dateFormat: "M月d日 HH:mm", timeZone: timeZone)
+}
+
+func resetDate(
+    _ date: Date?,
+    timeZone: TimeZone = .autoupdatingCurrent
+) -> String {
+    guard let date else {
+        return "日期未知"
+    }
+
+    return formattedDate(date, dateFormat: "M月d日", timeZone: timeZone)
+}
+
+private func formattedDate(
+    _ date: Date,
+    dateFormat: String,
+    timeZone: TimeZone
+) -> String {
     let formatter = DateFormatter()
     formatter.locale = Locale(identifier: "zh_CN")
     formatter.calendar = Calendar(identifier: .gregorian)
     formatter.timeZone = timeZone
-    formatter.dateFormat = "M月d日 HH:mm"
-    return "刷新 \(formatter.string(from: date))"
+    formatter.dateFormat = dateFormat
+    return formatter.string(from: date)
 }
 
 private func decimalDouble(_ value: Decimal) -> Double {
