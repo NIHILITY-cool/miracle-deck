@@ -14,6 +14,8 @@ The project follows semantic versioning after the first public release.
 - Reduced the menu panel height and tightened card and provider-row spacing.
 - Reworked the prototype palette around a cool neutral surface, restrained
   status accents, and a soft Aurora hero inspired by Quota Float.
+- Subscription cards now show exact quota reset dates and times, plus a compact
+  weekly remaining quota summary without increasing the panel size.
 
 ### Added
 

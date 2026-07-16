@@ -166,7 +166,7 @@ private struct ProviderHeroCard: View {
 
                 if let quota = snapshot.quotaWindows.first,
                    let remainingRatio = quota.remainingRatio {
-                    VStack(alignment: .leading, spacing: 5) {
+                    VStack(alignment: .leading, spacing: 4) {
                         QuotaProgressBar(
                             value: decimalDouble(remainingRatio),
                             status: snapshot.status,
@@ -176,10 +176,21 @@ private struct ProviderHeroCard: View {
                         HStack {
                             Text(quota.title)
                             Spacer()
-                            Text(resetDescription(quota.resetsAt))
+                            Text(resetTimestamp(quota.resetsAt))
                         }
                         .font(.system(size: 9.5, weight: .medium))
                         .foregroundStyle(palette.tertiaryText)
+
+                        if let weeklyQuota,
+                           let weeklyRemainingRatio = weeklyQuota.remainingRatio {
+                            HStack {
+                                Text("\(weeklyQuota.title) · 剩余 \(percentage(weeklyRemainingRatio))")
+                                Spacer()
+                                Text(resetTimestamp(weeklyQuota.resetsAt))
+                            }
+                            .font(.system(size: 9, weight: .medium))
+                            .foregroundStyle(palette.secondaryText)
+                        }
                     }
                     .padding(.trailing, 42)
                 } else {
@@ -219,6 +230,18 @@ private struct ProviderHeroCard: View {
 
     private var primaryFontSize: CGFloat {
         snapshot.balance == nil ? 46 : 38
+    }
+
+    private var weeklyQuota: QuotaWindow? {
+        guard let primaryQuota = snapshot.quotaWindows.first else {
+            return nil
+        }
+
+        return snapshot.quotaWindows.first {
+            $0.id != primaryQuota.id
+                && ($0.id.localizedCaseInsensitiveContains("week")
+                    || $0.title.localizedCaseInsensitiveContains("周"))
+        }
     }
 }
 
@@ -505,22 +528,20 @@ private func statusText(_ status: ProviderStatus) -> String {
     }
 }
 
-private func resetDescription(_ date: Date?) -> String {
+func resetTimestamp(
+    _ date: Date?,
+    timeZone: TimeZone = .autoupdatingCurrent
+) -> String {
     guard let date else {
-        return "刷新时间未知"
+        return "刷新日期未知"
     }
 
-    let remaining = max(0, Int(date.timeIntervalSinceNow))
-    if remaining < 60 {
-        return "即将刷新"
-    }
-    if remaining < 3_600 {
-        return "\(remaining / 60) 分钟后刷新"
-    }
-    if remaining < 86_400 {
-        return "\(remaining / 3_600) 小时后刷新"
-    }
-    return "\(remaining / 86_400) 天后刷新"
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "zh_CN")
+    formatter.calendar = Calendar(identifier: .gregorian)
+    formatter.timeZone = timeZone
+    formatter.dateFormat = "M月d日 HH:mm"
+    return "刷新 \(formatter.string(from: date))"
 }
 
 private func decimalDouble(_ value: Decimal) -> Double {

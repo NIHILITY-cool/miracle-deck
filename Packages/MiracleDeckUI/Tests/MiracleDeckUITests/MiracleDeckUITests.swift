@@ -16,13 +16,47 @@ final class MiracleDeckUITests: XCTestCase {
         XCTAssertEqual(MonitorPanelView.preferredSize.height, 400)
     }
 
+    func testQuotaResetUsesSpecificDateAndTime() {
+        let timeZone = TimeZone(secondsFromGMT: 8 * 60 * 60)!
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        let date = calendar.date(
+            from: DateComponents(
+                year: 2026,
+                month: 7,
+                day: 19,
+                hour: 1,
+                minute: 35
+            )
+        )!
+
+        XCTAssertEqual(
+            resetTimestamp(date, timeZone: timeZone),
+            "刷新 7月19日 01:35"
+        )
+        XCTAssertEqual(
+            resetTimestamp(nil, timeZone: timeZone),
+            "刷新日期未知"
+        )
+    }
+
     func testRenderPanelWhenCapturePathIsProvided() throws {
         guard let capturePath = ProcessInfo.processInfo.environment["MIRACLEDECK_CAPTURE_PATH"] else {
             throw XCTSkip("Set MIRACLEDECK_CAPTURE_PATH to render a visual QA image.")
         }
 
         let size = MonitorPanelView.preferredSize
-        let rootView = MonitorPanelView(snapshots: MockProvider.sampleSnapshots())
+        let snapshots = MockProvider.sampleSnapshots()
+        let subscriptionFirst = snapshots.sorted {
+            if $0.category == .subscription {
+                return true
+            }
+            if $1.category == .subscription {
+                return false
+            }
+            return false
+        }
+        let rootView = MonitorPanelView(snapshots: subscriptionFirst)
             .environment(\.colorScheme, .light)
         let hostingView = NSHostingView(rootView: rootView)
         hostingView.frame = NSRect(origin: .zero, size: size)
