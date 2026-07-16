@@ -9,7 +9,8 @@ let package = Package(
         .library(name: "MiracleDeckUI", targets: ["MiracleDeckUI"])
     ],
     dependencies: [
-        .package(path: "../MiracleDeckCore")
+        .package(path: "../MiracleDeckCore"),
+        .package(path: "../MiracleDeckProviders")
     ],
     targets: [
         .target(
@@ -18,7 +19,11 @@ let package = Package(
         ),
         .testTarget(
             name: "MiracleDeckUITests",
-            dependencies: ["MiracleDeckUI", "MiracleDeckCore"]
+            dependencies: [
+                "MiracleDeckUI",
+                "MiracleDeckCore",
+                "MiracleDeckProviders"
+            ]
         )
     ]
 )

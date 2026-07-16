@@ -6,7 +6,10 @@ import MiracleDeckUI
 @MainActor
 final class PanelController {
     private let panel: MonitorPanel
-    private let panelSize = NSSize(width: 380, height: 520)
+    private let panelSize = NSSize(
+        width: MonitorPanelView.preferredSize.width,
+        height: MonitorPanelView.preferredSize.height
+    )
 
     init(snapshots: [ProviderSnapshot]) {
         let panel = MonitorPanel(
