@@ -41,6 +41,12 @@ public struct MonitorPanelView: View {
                             palette: palette
                         )
                     }
+                    .shadow(
+                        color: palette.heroAmbient(selectedSnapshot.status)
+                            .opacity(palette.isDark ? 0.18 : 0.30),
+                        radius: 22,
+                        y: 7
+                    )
                     .transition(heroTransition)
             }
 
@@ -238,7 +244,7 @@ private struct ProviderHeroCard: View {
 
             if let weeklyQuota,
                let weeklyRemainingRatio = weeklyQuota.remainingRatio {
-                WeeklyQuotaBadge(
+                WeeklyQuotaSummary(
                     remainingRatio: weeklyRemainingRatio,
                     resetsAt: weeklyQuota.resetsAt,
                     palette: palette
@@ -289,44 +295,25 @@ private struct ProviderHeroCard: View {
     }
 }
 
-private struct WeeklyQuotaBadge: View {
+private struct WeeklyQuotaSummary: View {
     let remainingRatio: Decimal
     let resetsAt: Date?
     let palette: DeckPalette
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            HStack(alignment: .firstTextBaseline, spacing: 5) {
-                Text("本周")
-                    .font(.system(size: 8.5, weight: .semibold))
-                    .tracking(0.5)
-                    .foregroundStyle(palette.tertiaryText)
+        VStack(alignment: .trailing, spacing: 1) {
+            Text(percentage(remainingRatio))
+                .font(.system(size: 15, weight: .semibold))
+                .fontWidth(.condensed)
+                .monospacedDigit()
+                .foregroundStyle(palette.primaryText)
 
-                Spacer(minLength: 0)
-
-                Text(percentage(remainingRatio))
-                    .font(.system(size: 12.5, weight: .semibold))
-                    .fontWidth(.condensed)
-                    .monospacedDigit()
-                    .foregroundStyle(palette.primaryText)
-            }
-
-            Text(resetDate(resetsAt))
+            Text("本周 \(resetDate(resetsAt))")
                 .font(.system(size: 8.5, weight: .medium))
                 .monospacedDigit()
-                .foregroundStyle(palette.secondaryText)
+                .foregroundStyle(palette.tertiaryText)
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
-        .frame(width: 76)
-        .background(
-            palette.weeklyFill,
-            in: RoundedRectangle(cornerRadius: 11, style: .continuous)
-        )
-        .overlay {
-            RoundedRectangle(cornerRadius: 11, style: .continuous)
-                .stroke(palette.weeklyBorder, lineWidth: 1)
-        }
+        .frame(width: 78, alignment: .trailing)
     }
 }
 
@@ -346,7 +333,7 @@ private struct HeroBackground: View {
             )
 
             RadialGradient(
-                colors: [palette.heroGlow(status).opacity(0.86), .clear],
+                colors: [palette.heroGlow(status).opacity(0.82), .clear],
                 center: .bottomLeading,
                 startRadius: 0,
                 endRadius: 190
@@ -355,7 +342,7 @@ private struct HeroBackground: View {
             LinearGradient(
                 colors: [
                     Color.white.opacity(palette.isDark ? 0.02 : 0.18),
-                    palette.heroWarm(status).opacity(palette.isDark ? 0.24 : 0.36)
+                    palette.heroWarm(status).opacity(palette.isDark ? 0.22 : 0.32)
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -371,22 +358,25 @@ private struct HeroAmbientGlow: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .fill(palette.heroAmbient(status).opacity(palette.isDark ? 0.14 : 0.22))
-                .blur(radius: 24)
-                .scaleEffect(x: 1.025, y: 0.82)
-                .offset(y: 9)
+                .fill(
+                    palette.heroAmbient(status)
+                        .opacity(palette.isDark ? 0.22 : 0.36)
+                )
+                .blur(radius: 28)
+                .scaleEffect(x: 1.045, y: 0.90)
+                .offset(y: 8)
 
             RadialGradient(
                 colors: [
-                    palette.heroCool.opacity(palette.isDark ? 0.12 : 0.24),
+                    palette.heroCool.opacity(palette.isDark ? 0.16 : 0.28),
                     .clear
                 ],
                 center: .topTrailing,
                 startRadius: 10,
-                endRadius: 170
+                endRadius: 210
             )
-            .blur(radius: 12)
-            .padding(-8)
+            .blur(radius: 18)
+            .padding(-12)
         }
         .allowsHitTesting(false)
     }
@@ -597,8 +587,6 @@ private struct DeckPalette {
     var markBorder: Color { Color.white.opacity(isDark ? 0.08 : 0.50) }
     var markText: Color { isDark ? Color(hex: 0xDDE6EF) : Color(hex: 0x33465C) }
     var progressTrack: Color { Color.white.opacity(isDark ? 0.10 : 0.30) }
-    var weeklyFill: Color { Color.white.opacity(isDark ? 0.055 : 0.18) }
-    var weeklyBorder: Color { Color.white.opacity(isDark ? 0.085 : 0.30) }
 
     func statusColor(_ status: ProviderStatus) -> Color {
         switch status {
@@ -669,6 +657,7 @@ private struct DeckPalette {
             return [unavailable, unavailable.opacity(0.65)]
         }
     }
+
 }
 
 private extension Color {

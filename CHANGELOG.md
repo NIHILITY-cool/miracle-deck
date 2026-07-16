@@ -20,6 +20,9 @@ The project follows semantic versioning after the first public release.
   weekly reset information, animated account selection and quota transitions.
 - Added a short menu-panel entrance animation and status-aware ambient color
   bleed around the hero card while keeping the panel background stable.
+- Removed the weekly quota container and paired its label with the reset date.
+- Strengthened the status-aware ambient wash around the hero so its changing
+  card color blends into the stable panel background instead of ending abruptly.
 
 ### Added
 
