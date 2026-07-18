@@ -7,12 +7,16 @@ import MiracleDeckUI
 @MainActor
 final class PanelController {
     private let panel: MonitorPanel
-    private let panelSize = NSSize(
-        width: MonitorPanelView.preferredSize.width,
-        height: MonitorPanelView.preferredSize.height
-    )
+    private let layoutStore: DeckLayoutStore
 
-    init(snapshots: [ProviderSnapshot]) {
+    init(
+        snapshots: [ProviderSnapshot],
+        layoutStore: DeckLayoutStore = .shared
+    ) {
+        let panelSize = NSSize(
+            width: layoutStore.preset.panelWidth,
+            height: layoutStore.preset.panelHeight
+        )
         let panel = MonitorPanel(
             contentRect: NSRect(origin: .zero, size: panelSize),
             styleMask: [.borderless, .nonactivatingPanel],
@@ -27,10 +31,14 @@ final class PanelController {
         panel.hidesOnDeactivate = true
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         panel.contentViewController = NSHostingController(
-            rootView: MonitorPanelView(snapshots: snapshots)
+            rootView: MonitorPanelView(
+                snapshots: snapshots,
+                layoutStore: layoutStore
+            )
         )
 
         self.panel = panel
+        self.layoutStore = layoutStore
     }
 
     func toggle(relativeTo button: NSStatusBarButton) {
@@ -49,6 +57,12 @@ final class PanelController {
         guard let buttonWindow = button.window else {
             return
         }
+
+        let panelSize = NSSize(
+            width: layoutStore.preset.panelWidth,
+            height: layoutStore.preset.panelHeight
+        )
+        panel.setContentSize(panelSize)
 
         let anchor = buttonWindow.convertToScreen(button.bounds)
         let screenFrame = buttonWindow.screen?.visibleFrame ?? NSScreen.main?.visibleFrame ?? .zero

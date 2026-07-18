@@ -15,7 +15,10 @@ let package = Package(
     targets: [
         .target(
             name: "MiracleDeckUI",
-            dependencies: ["MiracleDeckCore"]
+            dependencies: ["MiracleDeckCore"],
+            resources: [
+                .process("Resources")
+            ]
         ),
         .testTarget(
             name: "MiracleDeckUITests",

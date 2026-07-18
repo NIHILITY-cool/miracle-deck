@@ -1,4 +1,6 @@
 import SwiftUI
+import MiracleDeckProviders
+import MiracleDeckUI
 
 @main
 struct MiracleDeckApp: App {
@@ -6,7 +8,14 @@ struct MiracleDeckApp: App {
 
     var body: some Scene {
         Settings {
+#if DEBUG
+            LayoutWorkbenchView(
+                snapshots: MockProvider.sampleSnapshots(),
+                targetStore: .shared
+            )
+#else
             SettingsPlaceholderView()
+#endif
         }
     }
 }

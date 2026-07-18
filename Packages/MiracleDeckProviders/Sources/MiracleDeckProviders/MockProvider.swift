@@ -10,6 +10,18 @@ public enum MockProvider {
                 accountName: "Official API",
                 category: .api,
                 balance: Money(amount: 86.42, currencyCode: "CNY"),
+                usage: [
+                    UsageSummary(
+                        period: DateInterval(
+                            start: now.addingTimeInterval(-604_800),
+                            end: now
+                        ),
+                        inputTokens: 1_248_000,
+                        outputTokens: 384_000,
+                        requestCount: 184,
+                        spend: Money(amount: 12.64, currencyCode: "CNY")
+                    )
+                ],
                 fetchedAt: now,
                 source: .init(
                     kind: .officialAPI,
@@ -34,7 +46,8 @@ public enum MockProvider {
                         id: "weekly",
                         title: "每周额度",
                         remainingRatio: 0.31,
-                        resetsAt: now.addingTimeInterval(172_800)
+                        resetsAt: now.addingTimeInterval(172_800),
+                        resetCount: 4
                     )
                 ],
                 fetchedAt: now,
@@ -51,6 +64,19 @@ public enum MockProvider {
                 accountName: "Community relay",
                 category: .relay,
                 balance: Money(amount: 4.18, currencyCode: "USD"),
+                usage: [
+                    UsageSummary(
+                        period: DateInterval(
+                            start: now.addingTimeInterval(-604_800),
+                            end: now
+                        ),
+                        inputTokens: 386_000,
+                        outputTokens: 104_000,
+                        requestCount: 47,
+                        spend: Money(amount: 1.27, currencyCode: "USD"),
+                        isEstimated: true
+                    )
+                ],
                 fetchedAt: now,
                 source: .init(
                     kind: .compatibleAPI,

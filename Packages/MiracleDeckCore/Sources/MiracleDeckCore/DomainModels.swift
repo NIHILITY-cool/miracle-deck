@@ -77,17 +77,20 @@ public struct QuotaWindow: Identifiable, Hashable, Codable, Sendable {
     public let title: String
     public let remainingRatio: Decimal?
     public let resetsAt: Date?
+    public let resetCount: Int?
 
     public init(
         id: String,
         title: String,
         remainingRatio: Decimal?,
-        resetsAt: Date?
+        resetsAt: Date?,
+        resetCount: Int? = nil
     ) {
         self.id = id
         self.title = title
         self.remainingRatio = remainingRatio
         self.resetsAt = resetsAt
+        self.resetCount = resetCount
     }
 }
 

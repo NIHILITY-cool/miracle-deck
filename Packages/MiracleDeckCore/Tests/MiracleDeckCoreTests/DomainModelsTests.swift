@@ -18,4 +18,15 @@ final class DomainModelsTests: XCTestCase {
         XCTAssertNil(usage.spend)
         XCTAssertFalse(usage.isEstimated)
     }
+
+    func testQuotaResetCountIsOptional() {
+        let quota = QuotaWindow(
+            id: "weekly",
+            title: "每周额度",
+            remainingRatio: 0.5,
+            resetsAt: nil
+        )
+
+        XCTAssertNil(quota.resetCount)
+    }
 }
